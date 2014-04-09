@@ -4,6 +4,7 @@ How to build the code
 
 This code uses FFTW (http://www.fftw.org/) to compute the FFT. I'm using FFT to get a improve the performance of 1-D variogram calculation[1].
 
+To compile using GCC, use the script "run_benchmark.sh".
 
 References
 ----------
