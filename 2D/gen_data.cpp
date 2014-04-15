@@ -9,11 +9,15 @@ int main()
 {
 	srand(time(NULL));
 	
-	int N;
-	scanf("%d", &N);
+	int N, M;
+	scanf("%d%d", &N, &M);
 
-	printf("%d\n", N);
-	for (int i = 0; i < N; ++i) printf("%d\n", rand() % 200);
-	
+	printf("%d %d\n", N, M);
+	for (int i = 0; i < N; ++i) { 
+		for (int j = 0; j < M; ++j)
+			printf("%d ", rand() % 200);
+		printf("\n");
+	}
+
 	return 0;
 }

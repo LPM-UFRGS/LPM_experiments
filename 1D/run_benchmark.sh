@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
-g++ -O2 -o variogram_simple variogram_simple.cpp -lm 
-g++ -O2 -o variogram_fft variogram_fft.cpp -lm -lfftw3 -lfftw3l
+g++ -O2 -o variogram_simple variogram_simple_1d.cpp -lm 
+g++ -O2 -o variogram_fft variogram_fft_1d.cpp -lm -lfftw3 -lfftw3l
 
 
 echo "Testing simple N = 10 ..."
@@ -41,7 +41,4 @@ time ./variogram_fft < t1000000.in > t1000000.fft.out
 
 #echo "Testing FFT N = 10000000 ..."
 #time ./variogram_fft < t10000000.in > t10000000.fft.out
-
-
-
 
