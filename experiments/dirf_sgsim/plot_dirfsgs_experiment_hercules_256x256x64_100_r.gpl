@@ -1,0 +1,5 @@
+set xlabel 'Number of threads (N)'
+set ylabel 'Time (hours)'
+plot 'dirfsgs_experiment_hercules_256x256x64 - 100 r - x 1 1.dat' w l title  'Fields: 2N, 1, 1'
+
+pause -1
