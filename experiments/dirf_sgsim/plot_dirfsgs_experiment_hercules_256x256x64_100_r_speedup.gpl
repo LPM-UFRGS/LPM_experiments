@@ -1,0 +1,10 @@
+set output 'speedup_hercules_256x256x64_100_r_speedup.png'
+set terminal png
+set xlabel 'Number of threads (N)'
+set ylabel 'Speed up'
+plot 'dirfsgs_experiment_hercules_256x256x64 - 100 r - x 1 1 speedup.dat' w l title  'Fields: 2N, 1, 1', 'speedup_ideal.dat'  w l title 'Ideal'
+
+
+
+
+
