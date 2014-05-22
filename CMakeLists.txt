@@ -19,6 +19,14 @@ if( NOT CMAKE_BUILD_TYPE )
        FORCE )
 endif()
 
+set(FFTWF_LIB  "E:/fftw-3.3.4-dll64/libfftw3f-3.lib")
+set(FFTWL_LIB  "E:/fftw-3.3.4-dll64/libfftw3l-3.lib")
+set(FFTW_LIB  "E:/fftw-3.3.4-dll64/libfftw3-3.lib")
+set(FFTW_ROOT  "E:/fftw-3.3.4-dll64")
+set(FFTW_INCLUDE_DIR  "E:/fftw-3.3.4-dll64")
+
+
+
 find_package(FFTW REQUIRED)
 
 include_directories(${FFTW_INCLUDE_DIR})
