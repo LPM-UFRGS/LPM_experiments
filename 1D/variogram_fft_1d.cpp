@@ -88,8 +88,8 @@ int main()
 		double S1 = (accp[N - h - 1] - accp[0] + z[0][REAL] * z[0][REAL]);
 
 		Y[h] = S1 / (2 * (N - h)) + S2 / (2 * (N - h)) - 2 * S3 / (2 * (N - h));
-		printf("%.3lf\n", Y[h]);
-		//printf("%.3lf\n", S3);
+		printf("%.3lf ", Y[h]);
+		printf(" (%.3lf)\n", S3);
 	}
 
 	free(Y);

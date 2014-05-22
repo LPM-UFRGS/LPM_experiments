@@ -16,24 +16,24 @@ Autor: Péricles Lopes Machado
 
 using namespace std;
 
-#define _p(i, j) [(i) * M + (j)]
-#define _p2(i, j) [(i) * (2 * M + 1) + (j)]
+#define _p(i, j, k) [((i) * M + (j)) * K + (k)]
+#define _p3(i, j, k) [((i) * (2 * M + 1) + (j)) * (2 * K + 1) + (k)]
 
 int main()
 {
-	int N, M;
+	int N, M, K;
 
-	scanf("%d%d", &N, &M);
+	scanf("%d%d%d", &N, &M, &K);
 
 
-	double* Y = (double*) malloc(sizeof(double) * N * M);
-	double* accp = (double*) malloc(sizeof(double) * N * M);
+	double* Y = (double*) malloc(sizeof(double) * N * M * K);
+	double* accp = (double*) malloc(sizeof(double) * N * M * K);
 
 	fftw_complex *z, *Z, *ZI;
 	fftw_plan p;
 
 
-	int ZS = (2 * N + 1) * (2 * M + 1);
+	int ZS = (2 * N + 1) * (2 * M + 1) * (2 * K + 1);
 
 	z = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * ZS);
 	Z = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * ZS);
@@ -44,29 +44,58 @@ int main()
 
 	for (int i = 0; i < N; ++i) {
 		for (int j = 0; j < M; ++j) {
-			accp _p(i, j) = 0;
+			for (int k = 0; k < K; ++k) {
+				accp _p(i, j, k) = 0;
+			}
 		}
 	}
 
 	for (int i = 0; i < N; ++i) {
 		for (int  j = 0; j < M; ++j) {
-			double v;
-			scanf("%lf", &v);
+			for (int k = 0; k < K; ++k) {
+				double v;
+				scanf("%lf", &v);
 
-			z _p2(i, j)[REAL] = v;
-			z _p2(i, j)[IMAG] = 0;
+				z _p3(i, j, k)[REAL] = v;
+				z _p3(i, j, k)[IMAG] = 0;
 
-			if (i > 0) {
-				if (j > 0) {
-					accp _p(i, j) = v * v + accp _p(i - 1, j) + accp _p(i, j - 1) - accp _p(i - 1, j -1);
+				if (i > 0) {
+					if (j > 0) {
+						if (k > 0) {
+							accp _p(i, j, k) = v * v 
+							+ accp _p(i - 1, j, k) + accp _p(i, j - 1, k) + accp _p(i, j, k - 1)
+							- accp _p(i - 1, j - 1, k) - accp _p(i - 1, j, k - 1) - accp _p(i, j - 1, k - 1)
+							+ accp _p(i - 1, j - 1, k - 1);
+						} else {
+							accp _p(i, j, k) = v * v 
+							+ accp _p(i - 1, j, k) + accp _p(i, j - 1, k) 
+							- accp _p(i - 1, j - 1, k);
+						}
+					} else {
+						if (k > 0) {
+							accp _p(i, j, k) = v * v 
+							+ accp _p(i - 1, j, k) + accp _p(i, j, k - 1)
+							- accp _p(i - 1, j, k - 1);
+						} else {
+							accp _p(i, j, k) = v * v + accp _p(i - 1, j, k);
+						}
+					}
 				} else {
-					accp _p(i, j) = v * v + accp _p(i - 1, j);
-				}
-			} else {
-				if (j > 0) {
-					accp _p(i, j) = v * v + accp _p(i, j - 1);
-				} else {
-					accp _p(i, j) = v * v;
+					if (j > 0) {
+						if (k > 0) {
+							accp _p(i, j, k) = v * v 
+							+ accp _p(i, j - 1, k) + accp _p(i, j, k - 1)
+							- accp _p(i, j - 1, k - 1);
+						} else {
+							accp _p(i, j, k) = v * v + accp _p(i, j - 1, k);
+						}
+					} else {
+						if (k > 0) {
+							accp _p(i, j, k) = v * v + accp _p(i, j, k - 1);
+						} else {
+							accp _p(i, j, k) = v * v;
+						}
+					}
 				}
 			}
 		}
@@ -76,7 +105,7 @@ int main()
 
 	//LEVA z para o dominio da frequencia
 
-	p = fftw_plan_dft_2d(2 * N + 1, 2 * M + 1, z, Z, FFTW_FORWARD, FFTW_ESTIMATE);
+	p = fftw_plan_dft_3d(2 * N + 1, 2 * M + 1, 2 * K + 1, z, Z, FFTW_FORWARD, FFTW_ESTIMATE);
 
 	fftw_execute(p);
 
@@ -89,47 +118,55 @@ int main()
 	}
 
 
-	p = fftw_plan_dft_2d(2 * N + 1, 2 * M + 1, Z, ZI, FFTW_BACKWARD, FFTW_ESTIMATE);
+	p = fftw_plan_dft_3d(2 * N + 1, 2 * M + 1, 2 * K + 1, Z, ZI, FFTW_BACKWARD, FFTW_ESTIMATE);
 	fftw_execute(p); 
 
-	printf("%d %d\n", N, M);
+	printf("%d %d %d\n", N, M, K);
 
 	for (int hx = 0; hx < N; ++hx) { 
 		for (int hy = 0; hy < M; ++hy) {
+			for (int hz = 0; hz < K; ++hz) {
 
-			/*
+				/*
 
-			Y[h] = SUM( i = h .. N(h),  (z[i] - z[i - h])²) / (2 * N(h))
+				Y[h] = SUM( i = h .. N(h),  (z[i] - z[i - h])²) / (2 * N(h))
 
 
-			Y[h] =  
-			SUM( i = h .. N(h),  z[i - h]²) / (2 * N(h)) [S1]
-			+ 
-			SUM( i = h .. N(h),  z[i]²) / (2 * N(h)) [S2]
-			- 2 *
-			SUM( i = h .. N(h),  z[i] * z[i - h]) / (2 * N(h)) [S3] 
-			*/
+				Y[h] =  
+				SUM( i = h .. N(h),  z[i - h]²) / (2 * N(h)) [S1]
+				+ 
+				SUM( i = h .. N(h),  z[i]²) / (2 * N(h)) [S2]
+				- 2 *
+				SUM( i = h .. N(h),  z[i] * z[i - h]) / (2 * N(h)) [S3] 
+				*/
 
-			double S3 = ZI _p2(hx, hy)[REAL] / ZS;
+				double S3 = ZI _p3(hx, hy, hz)[REAL] / ZS;
 
-			double S2 = accp _p(N - 1, M  - 1);
+				double S2 = accp _p(N - 1, M  - 1, K - 1);
 
-			if (hx > 0) S2 -= accp _p(hx - 1, M  - 1);
-			if (hy > 0) S2 -= accp _p(N  - 1, hy - 1);
-			if (hx > 0 && hy > 0) S2 += accp _p(hx - 1, hy - 1); 
+				if (hx > 0) S2 -= accp _p(hx - 1, M  - 1, K - 1);
+				if (hy > 0) S2 -= accp _p(N  - 1, hy - 1, K - 1);
+				if (hz > 0) S2 -= accp _p(N  - 1, M -  1, hz - 1);
+
+				if (hx > 0 && hy > 0) S2 += accp _p(hx - 1, hy - 1, K - 1); 
+				if (hx > 0 && hz > 0) S2 += accp _p(hx - 1, M  - 1, hz - 1);
+				if (hy > 0 && hz > 0) S2 += accp _p(N  - 1, hy - 1, hz - 1); 
+
+				if (hx > 0 && hy > 0 && hz > 0) S2 -= accp _p(hx - 1, hy  - 1, hz - 1);
 			
 			
-			double S1 = accp _p(N - hx - 1, M - hy - 1);
+				double S1 = accp _p(N - hx - 1, M - hy - 1, K - hz - 1);
 
 			
-			Y _p(hx, hy) =        S1 / (2 * (N - hx) * (M - hy)) 
-							+     S2 / (2 * (N - hx) * (M - hy)) 
-							- 2 * S3 / (2 * (N - hx) * (M - hy));
+				Y _p(hx, hy, hz) =        S1 / (2 * (N - hx) * (M - hy) * (K - hz)) 
+								+     S2 / (2 * (N - hx) * (M - hy) * (K - hz)) 
+								- 2 * S3 / (2 * (N - hx) * (M - hy) * (K - hz));
 
-			printf("%.2lf ", Y _p(hx, hy) );
-			printf(" (%.2lf) ", S3);
+				printf("%.3lf ", Y _p(hx, hy, hz) );
+				printf(" (%.3lf) ", S3);
+			}
+			printf("\n");
 		}
-		printf("\n");
 	}
 
 	free(Y);

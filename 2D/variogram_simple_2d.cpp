@@ -47,8 +47,8 @@ int main()
 				}
 			}
 
-			printf("%.2lf ", acc);
-			printf(" (%.2lf) ", accprod);
+			printf("%.3lf ", acc);
+			printf(" (%.3lf) ", accprod);
 		}
 		printf("\n");
 	}

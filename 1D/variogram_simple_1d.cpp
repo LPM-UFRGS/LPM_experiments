@@ -33,11 +33,11 @@ int main()
 			double dz = z[i] - z[i - h];
 			// z[i]² + z[i - h]² - 2 z[i]z[i-h]
 			acc += 	(dz * dz) / (2 * (N - h));
-			//accprod += z[i] * z[i - h];
+			accprod += z[i] * z[i - h];
 		}
 
-		printf("%.3lf\n", acc);
-		//printf("%.3lf\n", accprod);
+		printf("%.3lf ", acc);
+		printf(" (%.3lf)\n", accprod);
 
 	}
 

@@ -126,8 +126,8 @@ int main()
 							+     S2 / (2 * (N - hx) * (M - hy)) 
 							- 2 * S3 / (2 * (N - hx) * (M - hy));
 
-			printf("%.2lf ", Y _p(hx, hy) );
-			printf(" (%.2lf) ", S3);
+			printf("%.3lf ", Y _p(hx, hy) );
+			printf(" (%.3lf) ", S3);
 		}
 		printf("\n");
 	}

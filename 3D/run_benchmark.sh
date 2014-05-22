@@ -9,12 +9,11 @@ time ./variogram_simple < t_10_10_10.in > t_10_10_10.s.out
 echo "======================================"
 
 
-return;
 
 echo "Running variogram FFT..."
 echo "Testing FFT N = 10 M = 10 K = 10..."
 time ./variogram_fft < t_10_10_10.in > t_10_10_10.fft.out
-diff t_10_10_10.s.out t_10_10_10.fft.out
+#diff t_10_10_10.s.out t_10_10_10.fft.out
 
 
 echo "Testing FFT N = 100 M = 100 K = 100..."

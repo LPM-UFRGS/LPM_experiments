@@ -55,11 +55,11 @@ int main()
 					}
 				}
 
-				printf("%.2lf ", acc);
-				printf(" (%.2lf) ", accprod);
+				printf("%.3lf ", acc);
+				printf(" (%.3lf) ", accprod);
 			}
+			printf("\n");
 		}
-		printf("\n");
 	}
 
 	for (int i = 0; i < N; ++i) {
