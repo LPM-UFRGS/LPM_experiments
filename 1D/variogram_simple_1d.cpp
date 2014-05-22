@@ -25,6 +25,7 @@ int main()
 
 
 	Y[0] = 0;
+	printf("%d\n", N);
 	for (int h = 0; h < N; ++h) {
 		double acc = 0;
 		double accprod = 0;

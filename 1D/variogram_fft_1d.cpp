@@ -65,6 +65,7 @@ int main()
 
 	p = fftw_plan_dft_1d(2 * N + 1, Z, ZI, FFTW_BACKWARD, FFTW_ESTIMATE);
 	fftw_execute(p); 
+	printf("%d\n", N);
 
 	for (int h = 0; h < N; ++h) {
 
