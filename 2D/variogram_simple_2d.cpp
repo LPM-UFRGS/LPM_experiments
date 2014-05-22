@@ -42,13 +42,13 @@ int main()
 					double dz = z[i][j] - z[i - hx][j - hy];
 					// z[i]² + z[i - h]² - 2 z[i] * z[i-h]
 					acc += 	(dz * dz) / (2 * (N - hx) * (M - hy));
-					//accprod += z[i] * z[i - h];
+					accprod += z[i - hx][j - hy] * z[i][j];
 
 				}
 			}
 
-			printf("%.3lf ", acc);
-			//printf("%.3lf\n", accprod);
+			printf("%.2lf ", acc);
+			printf(" (%.2lf) ", accprod);
 		}
 		printf("\n");
 	}
