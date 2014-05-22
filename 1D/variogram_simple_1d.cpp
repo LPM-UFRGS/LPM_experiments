@@ -40,7 +40,8 @@ int main()
 
 	}
 
-	delete z;	
+	delete z;
+	delete Y;	
 	return 0;
 }
 

@@ -11,14 +11,15 @@ time ./variogram_simple < t_10_10.in > t_10_10.s.out
 echo "Testing simple N = 100 M = 100 ..."
 time ./variogram_simple < t_100_100.in > t_100_100.s.out
 
-echo "Testing simple N = 1000 M = 1000..."
-time ./variogram_simple < t_1000_1000.in > t_1000_1000.s.out
+#echo "Testing simple N = 1000 M = 1000..."
+#time ./variogram_simple < t_1000_1000.in > t_1000_1000.s.out
 
 #echo "Testing simple N = 100000 ..."
 #time ./variogram_simple < t100000.in > t100000.s.out
 
 
 
+return;
 
 echo "Testing FFT N = 10 M = 10..."
 time ./variogram_fft < t_10_10.in > t_10_10.fft.out
