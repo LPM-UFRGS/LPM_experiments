@@ -37,6 +37,14 @@ int main()
 
 	printf("%d %d %d\n", N, M, K);
 
+	FILE* fout = fopen("varmap_simple_3d.dat", "w+");
+	fprintf(fout, "Varmap simple 3d\n");
+	fprintf(fout, "4\n");
+	fprintf(fout, "X\n");
+	fprintf(fout, "Y\n");
+	fprintf(fout, "Z\n");
+	fprintf(fout, "varmap\n");
+
 	for (int hx = 0; hx < N; ++hx) {
 		for (int hy = 0; hy < M; ++hy) {
 			for (int hz = 0; hz < K; ++hz) {
@@ -57,10 +65,12 @@ int main()
 
 				printf("%.3lf ", acc);
 				printf(" (%.3lf) ", accprod);
+				fprintf(fout, "%d %d %d %lf\n", hx, hy, hz, acc);
 			}
 			printf("\n");
 		}
 	}
+	fclose(fout);
 
 	for (int i = 0; i < N; ++i) {
 		for (int j = 0; j < M; ++j) {

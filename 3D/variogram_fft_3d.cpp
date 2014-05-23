@@ -123,6 +123,14 @@ int main()
 
 	printf("%d %d %d\n", N, M, K);
 
+	FILE* fout = fopen("varmap_fft_3d.dat", "w+");
+	fprintf(fout, "Varmap fft 3d\n");
+	fprintf(fout, "4\n");
+	fprintf(fout, "X\n");
+	fprintf(fout, "Y\n");
+	fprintf(fout, "Z\n");
+	fprintf(fout, "varmap\n");
+
 	for (int hx = 0; hx < N; ++hx) { 
 		for (int hy = 0; hy < M; ++hy) {
 			for (int hz = 0; hz < K; ++hz) {
@@ -164,10 +172,12 @@ int main()
 
 				printf("%.3lf ", Y _p(hx, hy, hz) );
 				printf(" (%.3lf) ", S3);
+				fprintf(fout, "%d %d %d %lf\n", hx, hy, hz, Y _p(hx, hy, hz));
 			}
 			printf("\n");
 		}
 	}
+	fclose(fout);
 
 	free(Y);
 	free(accp);
