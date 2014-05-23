@@ -32,6 +32,13 @@ int main()
 
 	printf("%d %d\n", N, M);
 
+	FILE* fout = fopen("varmap_simple_2d.dat", "w+");
+	fprintf(fout, "Varmap simple 2d\n");
+	fprintf(fout, "3\n");
+	fprintf(fout, "X\n");
+	fprintf(fout, "Y\n");
+	fprintf(fout, "varmap\n");
+
 	for (int hx = 0; hx < N; ++hx) {
 		for (int hy = 0; hy < M; ++hy) {
 			double acc = 0;
@@ -49,9 +56,11 @@ int main()
 
 			printf("%.3lf ", acc);
 			printf(" (%.3lf) ", accprod);
+			fprintf(fout, "%d %d %lf\n", hx, hy, acc);
 		}
 		printf("\n");
 	}
+	fclose(fout);
 
 	for (int i = 0; i < N; ++i) {
 		delete z[i];

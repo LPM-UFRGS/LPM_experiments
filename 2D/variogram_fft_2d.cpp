@@ -94,6 +94,13 @@ int main()
 
 	printf("%d %d\n", N, M);
 
+	FILE* fout = fopen("varmap_fft_2d.dat", "w+");
+	fprintf(fout, "Varmap fft 2d\n");
+	fprintf(fout, "3\n");
+	fprintf(fout, "X\n");
+	fprintf(fout, "Y\n");
+	fprintf(fout, "varmap\n");
+
 	for (int hx = 0; hx < N; ++hx) { 
 		for (int hy = 0; hy < M; ++hy) {
 
@@ -128,9 +135,11 @@ int main()
 
 			printf("%.3lf ", Y _p(hx, hy) );
 			printf(" (%.3lf) ", S3);
+			fprintf(fout, "%d %d %lf\n", hx, hy, Y _p(hx, hy));
 		}
 		printf("\n");
 	}
+	fclose(fout);
 
 	free(Y);
 	free(accp);
