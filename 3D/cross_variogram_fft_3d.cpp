@@ -230,7 +230,7 @@ int main(int argc, char** argv)
 								- 2 * S3 / (2 * (N - hx) * (M - hy) * (K - hz));
 
 				printf("%.3lf ", Y _p(hx, hy, hz) );
-				//printf(" (%.3lf) ", S3);
+				printf(" (%.3lf) ", S3);
 				fprintf(fout, "%d %d %d %lf\n", hx, hy, hz, Y _p(hx, hy, hz));
 			}
 			printf("\n");
