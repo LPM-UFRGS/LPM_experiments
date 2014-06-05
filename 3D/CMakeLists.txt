@@ -18,7 +18,16 @@ add_executable(gen_data_3d gen_data.cpp)
 add_executable(variogram_simple_3d variogram_simple_3d.cpp)
 add_executable(variogram_fft_3d variogram_fft_3d.cpp)
 
+add_executable(cross_gen_data_3d cross_gen_data.cpp)
+add_executable(cross_variogram_simple_3d cross_variogram_simple_3d.cpp)
+add_executable(cross_variogram_fft_3d cross_variogram_fft_3d.cpp)
+
+
 target_link_libraries(variogram_fft_3d 
+${FFTW_LIB} 
+${FFTWL_LIB})
+
+target_link_libraries(cross_variogram_fft_3d 
 ${FFTW_LIB} 
 ${FFTWL_LIB})
 
