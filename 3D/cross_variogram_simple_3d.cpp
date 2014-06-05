@@ -47,6 +47,9 @@ int main(int argc, char** argv)
 			}
 		}
 	}
+	
+	fclose(f1);
+	fclose(f2);
 
 
 	printf("%d %d %d\n", N, M, K);
@@ -78,7 +81,7 @@ int main(int argc, char** argv)
 				}
 
 				printf("%.3lf ", acc);
-				printf(" (%.3lf) ", accprod);
+				//printf(" (%.3lf) ", accprod);
 				fprintf(fout, "%d %d %d %lf\n", hx, hy, hz, acc);
 			}
 			printf("\n");
