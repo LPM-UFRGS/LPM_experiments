@@ -41,7 +41,7 @@ public:
 	friend Matrix pow(const GroupGenerator& G, const Matrix& A, Integer n);
 
 	GroupGenerator(Integer a, Integer c, Integer m)
-	: c(c), m(m), M((1l) << 40), z0(1)
+	: c(c), m(m), M(m + 1), z0(1)
 	{
 		A = {{1, 0},
 		     {1, a}};
