@@ -1,7 +1,7 @@
 #include <cmath>
 #include <vector>
 #include <iostream>
-#include <map>
+#include <unordered_map>
 
 using namespace std;
 
@@ -46,7 +46,7 @@ public:
 		A = {{1, 0},
 		     {1, a}};
 		inv();
-		print();
+		//print();
 	}
 
 	Integer mulMod(Integer v1, Integer v2)
@@ -67,17 +67,17 @@ public:
 		Integer inv_c = mul_inv(c, m);
 
 
-		Integer det =  (m + mulMod(b, inv_a) - mulMod(d, inv_c)) % m;
+		Integer det =  (m + m + mulMod(b, inv_a) - mulMod(d, inv_c)) % m;
 		Integer invDet = mul_inv(det, m);
 
-		Integer det2 = (m - mulMod(b, inv_a) + mulMod(d, inv_c)) % m;
+		Integer det2 = (m + m - mulMod(b, inv_a) + mulMod(d, inv_c)) % m;
 		Integer invDet2 = mul_inv(det2, m);
 
 		z = mulMod(inv_a, invDet);
-		x = mulMod(m - mulMod(d, inv_c), z);
+		x = mulMod(m + m - mulMod(d, inv_c), z);
 
 		w = mulMod(inv_c, invDet2);
-		y = mulMod(m - mulMod(b, inv_a), w);
+		y = mulMod(m + m - mulMod(b, inv_a), w);
 
 		Ainv = {{x, y},
 			{z, w}};
@@ -107,8 +107,7 @@ public:
 	}
 
 	Vector mul(const Matrix& A, const Vector& z) {
-		return {((A[0][0] * z[0]) % m + (A[0][1] * z[1]) % m) % m, 
-		((A[1][0] * z[0]) % m + (A[1][1] * z[1]) % m ) % m};
+		return {((A[0][0] * z[0]) % m + (A[0][1] * z[1]) % m) % m, ((A[1][0] * z[0]) % m + (A[1][1] * z[1]) % m ) % m};
 	}
 
 	void setMaxRange(Integer MaxValue) {
@@ -167,16 +166,15 @@ private:
 	
 	Matrix A;
 	Matrix Ainv;
-	std::map<Integer, Integer> H;
+	std::unordered_map<Integer, Integer> H;
 };
 
 
 Matrix pow(const GroupGenerator& G, const Matrix& A, Integer n) {
-	Matrix I{{1, 0},{0, 1}};
-	if (n == 0) return I;
+	if (n == 0) return {{1, 0},{0, 1}};
 	if (n == 1) return A;
 
-	Matrix v = pow(G, A, n / 2);
+	Matrix v = std::move(pow(G, A, n / 2));
 
 	if (n % 2) {
 		return G.mul(G.mul(v, v), A);
@@ -202,7 +200,7 @@ int main()
 
 	G.setZ0(z0);
 
-	cout << G.mul(G.getA(), G.getAinv()) << "\n";
+	//cout << G.mul(G.getA(), G.getAinv()) << "\n";
 
 	Integer T = G.calcPeriod();
 
