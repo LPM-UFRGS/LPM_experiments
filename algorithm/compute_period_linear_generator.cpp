@@ -41,10 +41,8 @@ public:
 	friend Matrix pow(const GroupGenerator& G, const Matrix& A, Integer n);
 
 	GroupGenerator(Integer a, Integer c, Integer m)
-	: c(c), m(m), M(m + 1), z0(1)
+	: c(c), m(m), M(m + 1), z0(1), A{{1, 0},{1, a}}
 	{
-		A = {{1, 0},
-		     {1, a}};
 		inv();
 		//print();
 	}
@@ -133,7 +131,7 @@ public:
 private:
 	Integer littleStep() {
 		Integer n = static_cast<Integer>(sqrt(M));		
-		Vector z = {c, z0};
+		Vector z{c, z0};
 		H.clear();
 		H[z[1]] = 0;
 		for (Integer i = 1; i <= n; ++i) {
@@ -147,7 +145,7 @@ private:
 	Integer giantStep() {
 		Integer n = static_cast<Integer>(sqrt(M));
 		Matrix B = pow(*this, Ainv, n);
-		Vector z = {c, z0};
+		Vector z{c, z0};
 		for (Integer i = 1; i  <= n; ++i) {
 			z = mul(B, z);
 			if (H.find(z[1]) != H.end()) {
