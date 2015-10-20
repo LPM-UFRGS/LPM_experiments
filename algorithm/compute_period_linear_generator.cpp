@@ -67,17 +67,17 @@ public:
 		Integer inv_c = mul_inv(c, m);
 
 
-		Integer det =  (m + m + mulMod(b, inv_a) - mulMod(d, inv_c)) % m;
+		Integer det =  (m + mulMod(b, inv_a) - mulMod(d, inv_c)) % m;
 		Integer invDet = mul_inv(det, m);
 
-		Integer det2 = (m + m - mulMod(b, inv_a) + mulMod(d, inv_c)) % m;
+		Integer det2 = (m - mulMod(b, inv_a) + mulMod(d, inv_c)) % m;
 		Integer invDet2 = mul_inv(det2, m);
 
 		z = mulMod(inv_a, invDet);
-		x = mulMod(m + m - mulMod(d, inv_c), z);
+		x = mulMod(m - mulMod(d, inv_c), z);
 
 		w = mulMod(inv_c, invDet2);
-		y = mulMod(m + m - mulMod(b, inv_a), w);
+		y = mulMod(m - mulMod(b, inv_a), w);
 
 		Ainv = {{x, y},
 			{z, w}};
