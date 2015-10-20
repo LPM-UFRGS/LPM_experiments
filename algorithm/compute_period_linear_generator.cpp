@@ -107,7 +107,8 @@ public:
 	}
 
 	Vector mul(const Matrix& A, const Vector& z) {
-		return {((A[0][0] * z[0]) % m + (A[0][1] * z[1]) % m) % m, ((A[1][0] * z[0]) % m + (A[1][1] * z[1]) % m ) % m};
+		return {((A[0][0] * z[0]) % m + (A[0][1] * z[1]) % m) % m, 
+		((A[1][0] * z[0]) % m + (A[1][1] * z[1]) % m ) % m};
 	}
 
 	void setMaxRange(Integer MaxValue) {
